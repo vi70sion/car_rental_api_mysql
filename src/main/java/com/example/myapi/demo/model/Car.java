@@ -1,4 +1,4 @@
-package com.example.myapi.demo;
+package com.example.myapi.demo.model;
 
 public class Car {
     private int id;

@@ -1,43 +1,19 @@
-package com.example.myapi.demo;
+package com.example.myapi.demo.service;
+import com.example.myapi.demo.model.Car;
 
+import static com.example.myapi.demo.Constants.*;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DBManager {
-    final String URL = "jdbc:mysql://localhost:3306/car_rental";
-    final String USERNAME = "root";
-    final String PASSWORD = "Mysql23*";
+
+public class CarService {
+
     private Connection _connection;
     private List<Car> carList;
-    public DBManager() throws SQLException {
+    public CarService() throws SQLException {
         _connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-        carList = new ArrayList<>();
-    }
-
-
-    public String addCar(Car car) throws SQLException {
-        String sql = "INSERT INTO car ( make, model, year, available) VALUES (?,?,?,?)";
-        PreparedStatement statement = _connection.prepareStatement(sql);
-        statement.setString(1, car.getMake());
-        statement.setString(2, car.getModel());
-        statement.setInt(3, car.getYear());
-        statement.setBoolean(4, car.isAvailable());
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) return "Pridėta";
-        else return "Nepridėta";
-    }
-
-    public String addClient(Client client) throws SQLException {
-        String sql = "INSERT INTO client ( first_name, last_name, email, phone) VALUES (?,?,?,?)";
-        PreparedStatement statement = _connection.prepareStatement(sql);
-        statement.setString(1, client.getFirstName());
-        statement.setString(2, client.getLastName());
-        statement.setString(3, client.getEmail());
-        statement.setString(4, client.getPhone());
-        int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) return "Pridėta";
-        else return "Nepridėta";
+        //carList = new ArrayList<>();
     }
 
     public List<Car> getAllCarsList() throws SQLException {
@@ -56,6 +32,18 @@ public class DBManager {
         return carList;
     }
 
+    public String addCar(Car car) throws SQLException {
+        String sql = "INSERT INTO car ( make, model, year, available) VALUES (?,?,?,?)";
+        PreparedStatement statement = _connection.prepareStatement(sql);
+        statement.setString(1, car.getMake());
+        statement.setString(2, car.getModel());
+        statement.setInt(3, car.getYear());
+        statement.setBoolean(4, car.isAvailable());
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) return "Pridėta";
+        else return "Nepridėta";
+    }
+
     public Car getCarById(int id) throws SQLException {
         String sql = "SELECT * FROM car WHERE car_id = ?";
         PreparedStatement statement = _connection.prepareStatement(sql);
@@ -71,6 +59,6 @@ public class DBManager {
         return (new Car(car_id, make, model, year, available));
     }
 
-
-
 }
+
+

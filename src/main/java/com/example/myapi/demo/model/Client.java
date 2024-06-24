@@ -1,4 +1,4 @@
-package com.example.myapi.demo;
+package com.example.myapi.demo.model;
 
 public class Client {
     private int id;
@@ -7,7 +7,18 @@ public class Client {
     private String email;
     private String phone;
 
+    public Client() {
+    }
+
     public Client(String firstName, String lastName, String email, String phone) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+    }
+
+    public Client(int id, String firstName, String lastName, String email, String phone) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,8 +31,6 @@ public class Client {
     public String getLastName() { return lastName; }
     public String getEmail() { return email; }
     public String getPhone() { return phone; }
-
-
-
+    public void setId(int id) { this.id = id; }
 
 }
