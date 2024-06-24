@@ -1,14 +1,25 @@
 Sukurti API automobilių nuomos sistemai be autentifikacijos naudojant Java. API turi leisti valdyti automobilius ir klientus, taip pat registruoti nuomos operacijas.
+
 Reikalavimai:
+
 Automobiliai
+
   Modelis: Car
+  
     id (unikalus identifikatorius)
+    
     make (gamintojas)
+    
     model (modelis)  
+    
     year (metai)
+    
     available (prieinamumas nuomai, boolean)
+    
 Klientai
+
   Modelis: Client
+  
     id (unikalus identifikatorius)
     firstName (vardas)
     lastName (pavardė)
