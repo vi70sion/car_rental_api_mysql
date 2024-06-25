@@ -61,22 +61,15 @@ public class RentalService {
         return (new Rental(rentalId, carId, clientId, rentalDate, returnDate));
     }
 
-    public Rental updateRental(int id, Rental rental) throws SQLException {
-        if(getRentalById(id) == null) {
-            addRental(rental);
-            return rental;
-        }
-        rental.setRentalId(id);
-        String updateSql = "UPDATE rental SET car_id = ?, client_id = ?, rental_date = ?, return_date = ? WHERE rental_id = ?";
+    public boolean updateRental(int id, LocalDate returnDate) throws SQLException {
+        if(getRentalById(id) == null) return false;
+        String updateSql = "UPDATE rental SET return_date = ? WHERE rental_id = ?";
         PreparedStatement statement = _connection.prepareStatement(updateSql);
-        statement.setInt(1, rental.getCarId());
-        statement.setInt(2, rental.getClientId());
-        statement.setString(3, rental.getRentalDate().format(formatter));
-        statement.setString(4, rental.getReturnDate().format(formatter));
-        statement.setInt(5, id);
+        statement.setString(1, returnDate.format(formatter));
+        statement.setInt(2, id);
         int rowsInserted = statement.executeUpdate();
-        if (rowsInserted > 0) return rental;
-        else return null;
+        if (rowsInserted > 0) return true;
+        else return false;
     }
 
     public boolean deleteRental(int id) throws SQLException {
